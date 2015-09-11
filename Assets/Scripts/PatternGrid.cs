@@ -1,23 +1,20 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class PatternGrid : MonoBehaviour {
-    private int index_ = 0;
-
-    private LineRenderer lineRenderer_;
-
-    private void Awake() {
-        lineRenderer_ = GetComponent<LineRenderer>();
-    }
+    private LinkedList<GameObject> pattern_ = new LinkedList<GameObject>();
 
     private void Update() {
         if (Input.GetButtonDown("Fire1")) {
-            lineRenderer_.SetVertexCount(1);
-            index_ = 0;
+            pattern_.Clear();
         }
     }
 
-    private void HitDot(Vector3 position) {
-        lineRenderer_.SetVertexCount(index_ + 1);
-        lineRenderer_.SetPosition(index_++, position);
+    private void HitDot(GameObject dot) {
+        if (pattern_.Count != 0) {
+            dot.SendMessage("Connect", pattern_.Last.Value);
+        }
+
+        pattern_.AddLast(dot);
     }
 }
