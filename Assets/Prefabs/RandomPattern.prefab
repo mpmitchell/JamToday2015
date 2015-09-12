@@ -300,6 +300,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc5888a5ef8f2a24b8edd67aafebb8a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  frequency: 1
 --- !u!120 &12002032
 LineRenderer:
   m_ObjectHideFlags: 1
@@ -675,6 +676,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_UseLightProbes
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: frequency
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
