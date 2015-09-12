@@ -2,18 +2,23 @@
 using System.Collections.Generic;
 
 public class RandomPattern : MonoBehaviour {
-    [SerializeField] private int minPatternSize;
-    [SerializeField] private int maxPatternSize;
-    [SerializeField] private float frequency;
+    private GameData gameData_;
+
+    [SerializeField] private int minPatternSize_;
+    [SerializeField] private int maxPatternSize_;
+    [SerializeField] private float frequency_;
     
     private LinkedList<GameObject> dots_ = new LinkedList<GameObject>();
     private Dictionary<GameObject, LineRenderer> lineRenderers_ = new Dictionary<GameObject, LineRenderer>();
     private Dictionary<GameObject, LinkedList<GameObject>> adjacencyLists_ = new Dictionary<GameObject, LinkedList<GameObject>>();
     private LinkedList<GameObject> pattern_ = new LinkedList<GameObject>();
-    private float timer = 0.0f;
-    private Rect bounds = new Rect();
+    private float timer_ = 0.0f;
+    private Rect bounds_ = new Rect();
+    private float length_;
 
     private void Awake() {
+        gameData_ = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameData>();
+
         foreach (Transform child in transform) {
             dots_.AddLast(child.gameObject);
             lineRenderers_.Add(child.gameObject, child.gameObject.GetComponent<LineRenderer>());
@@ -21,47 +26,47 @@ public class RandomPattern : MonoBehaviour {
 
             Bounds sprite = child.GetComponent<SpriteRenderer>().sprite.bounds;
 
-            if (child.localPosition.x - sprite.size.x < bounds.xMin) {
-                bounds.xMin = child.localPosition.x - sprite.size.x;
+            if (child.localPosition.x - sprite.size.x < bounds_.xMin) {
+                bounds_.xMin = child.localPosition.x - sprite.size.x;
             }
-            if (child.localPosition.x + sprite.size.x > bounds.xMax) {
-                bounds.xMax = child.localPosition.x + sprite.size.x;
+            if (child.localPosition.x + sprite.size.x > bounds_.xMax) {
+                bounds_.xMax = child.localPosition.x + sprite.size.x;
             }
-            if (child.localPosition.y - sprite.size.y < bounds.yMin) {
-                bounds.yMin = child.localPosition.y - sprite.size.y;
+            if (child.localPosition.y - sprite.size.y < bounds_.yMin) {
+                bounds_.yMin = child.localPosition.y - sprite.size.y;
             }
-            if (child.localPosition.y + sprite.size.y > bounds.yMax) {
-                bounds.yMax = child.localPosition.y + sprite.size.y;
+            if (child.localPosition.y + sprite.size.y > bounds_.yMax) {
+                bounds_.yMax = child.localPosition.y + sprite.size.y;
             }
         }
+
+        length_ = bounds_.size.x;
 
         Vector3 topLeft = Camera.main.ViewportToWorldPoint(new Vector3(0.0f, 0.0f, -Camera.main.transform.position.z));
         Vector3 bottomRight = Camera.main.ViewportToWorldPoint(new Vector3(1.0f, 1.0f, -Camera.main.transform.position.z));
 
-        bounds.xMin = topLeft.x - bounds.xMin;
-        bounds.yMin = topLeft.y - bounds.yMin;
-        bounds.xMax = bottomRight.x - bounds.xMax;
-        bounds.yMax = bottomRight.y - bounds.yMax;
+        bounds_.xMin = topLeft.x - bounds_.xMin;
+        bounds_.yMin = topLeft.y - bounds_.yMin;
+        bounds_.xMax = bottomRight.x - bounds_.xMax;
+        bounds_.yMax = bottomRight.y - bounds_.yMax;
     }
 
     private void Update() {
-        timer += Time.deltaTime;
+        timer_ += Time.deltaTime;
 
-        if (timer > 1.0f / frequency) {
+        if (timer_ > 1.0f / frequency_) {
             //if (Input.GetButtonDown("Fire2")) {
             RandomizePosition();
             ClearPreviousPattern();
             GeneratePattern();
-            timer = 0.0f;
+            timer_ = 0.0f;
         }
     }
 
     private void RandomizePosition() {
-        if (Random.Range(0, 2) == 0) {
-            transform.position = new Vector3(Random.Range(0, 2) == 0 ? bounds.xMin : bounds.xMax, Random.Range(bounds.yMin, bounds.yMax));
-        } else {
-            transform.position = new Vector3(Random.Range(bounds.xMin, bounds.xMax), Random.Range(0, 2) == 0 ? bounds.yMin : bounds.yMax);
-        }
+        float max = Mathf.Min(gameData_.halfLength_ + (gameData_.GetLevel() + 1) * length_, bounds_.xMax);
+
+        transform.position = new Vector3(Random.Range(gameData_.halfLength_ + gameData_.GetLevel() * length_, max), Random.Range(bounds_.yMin, bounds_.yMax));
     }
 
     private void ClearPreviousPattern() {
@@ -72,7 +77,7 @@ public class RandomPattern : MonoBehaviour {
     }
 
     private void GeneratePattern() {
-        int count = Random.Range(minPatternSize, maxPatternSize + 1);
+        int count = Random.Range(minPatternSize_, maxPatternSize_ + 1);
 
         var dot = dots_.Last;
         for (int index = Random.Range(0, dots_.Count); index > 0; --index, dot = dot.Previous) ;

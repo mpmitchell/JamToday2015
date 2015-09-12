@@ -329,6 +329,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreText_: {fileID: 872220259}
+  scorePerLevel_: 5
+  halfLength_: 0
 --- !u!1001 &1352341961
 Prefab:
   m_ObjectHideFlags: 0

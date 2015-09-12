@@ -16,11 +16,24 @@ public class PatternGrid : MonoBehaviour {
         gameData_ = GameObject.FindGameObjectWithTag("GameController");
         randomPattern_ = GameObject.FindGameObjectWithTag("Pattern").GetComponent<RandomPattern>();
 
+        Rect bounds = new Rect();
+
         foreach (Transform child in transform) {
             dots_.AddLast(child.gameObject);
             activeDots_.Add(child.gameObject, true);
             lineRenderers_.Add(child.gameObject, child.gameObject.GetComponent<LineRenderer>());
+
+            Bounds sprite = child.GetComponent<SpriteRenderer>().sprite.bounds;
+
+            if (child.localPosition.x - sprite.size.x < bounds.xMin) {
+                bounds.xMin = child.localPosition.x - sprite.size.x;
+            }
+            if (child.localPosition.x + sprite.size.x > bounds.xMax) {
+                bounds.xMax = child.localPosition.x + sprite.size.x;
+            }
         }
+
+        gameData_.GetComponent<GameData>().halfLength_ = bounds.size.x / 2.0f;
     }
 
     private void Update() {
