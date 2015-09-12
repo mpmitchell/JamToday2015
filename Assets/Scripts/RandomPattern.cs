@@ -47,8 +47,8 @@ public class RandomPattern : MonoBehaviour {
     private void Update() {
         timer += Time.deltaTime;
 
-        //if (timer > 1.0f / frequency) {
-        if (Input.GetButtonDown("Fire2")) {
+        if (timer > 1.0f / frequency) {
+            //if (Input.GetButtonDown("Fire2")) {
             RandomizePosition();
             ClearPreviousPattern();
             GeneratePattern();
