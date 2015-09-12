@@ -65,11 +65,8 @@ public class RandomPattern : MonoBehaviour {
     }
 
     private void ClearPreviousPattern() {
-        var dot = pattern_.Last;
-        for (int index = pattern_.Count; index > 0; --index) {
-            lineRenderers_[dot.Value].SetPosition(1, Vector3.zero);
-            dots_.AddLast(dot.Value);
-            dot = dot.Previous;
+        foreach (GameObject dot in dots_) {
+            lineRenderers_[dot].SetPosition(1, Vector3.zero);
         }
         pattern_.Clear();
     }
@@ -79,6 +76,8 @@ public class RandomPattern : MonoBehaviour {
 
         var dot = dots_.Last;
         for (int index = Random.Range(0, dots_.Count); index > 0; --index, dot = dot.Previous) ;
+
+        pattern_.AddLast(dot.Value);
 
         for (int i = 0; i < count; ++i) {
             LinkedList<GameObject> otherDots = new LinkedList<GameObject>(adjacencyLists_[dot.Value]);
