@@ -7,10 +7,12 @@ public class GameData : MonoBehaviour {
     private int score_;
 
     private void Score() {
-        scoreText_.text = score_++.ToString();
+        score_++;
+        scoreText_.text = score_.ToString();
     }
 
     private void Fail() {
-        scoreText_.text = score_--.ToString();
+        score_--;
+        scoreText_.text = score_.ToString();
     }
 }

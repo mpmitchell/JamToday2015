@@ -46,7 +46,7 @@ public class PatternGrid : MonoBehaviour {
                     pattern_.AddLast(hit.collider.gameObject.name);
                 }
             }
-        } else if (Input.GetButtonUp("Fire1") && pattern_.Count > 0) {
+        } else if (Input.GetButtonUp("Fire1") && pattern_.Count > 1) {
             var randomPattern = randomPattern_.GetPattern();
             
             if (pattern_.Count == randomPattern.Count) {

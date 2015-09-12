@@ -317,7 +317,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: .400000006, y: .400000006, z: .200000003}
+  m_Size: {x: 1, y: 1, z: .200000003}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &6524224
 BoxCollider:
@@ -329,7 +329,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: .400000006, y: .400000006, z: .200000003}
+  m_Size: {x: 1, y: 1, z: .200000003}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &6533504
 BoxCollider:
@@ -341,7 +341,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: .400000006, y: .400000006, z: .200000003}
+  m_Size: {x: 1, y: 1, z: .200000003}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &6542526
 BoxCollider:
@@ -353,7 +353,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: .400000006, y: .400000006, z: .200000003}
+  m_Size: {x: 1, y: 1, z: .200000003}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &6555338
 BoxCollider:
@@ -365,7 +365,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: .400000006, y: .400000006, z: .200000003}
+  m_Size: {x: 1, y: 1, z: .200000003}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &6585046
 BoxCollider:
@@ -377,7 +377,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: .400000006, y: .400000006, z: .200000003}
+  m_Size: {x: 1, y: 1, z: .200000003}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &6585702
 BoxCollider:
@@ -389,7 +389,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: .400000006, y: .400000006, z: .200000003}
+  m_Size: {x: 1, y: 1, z: .200000003}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &6589786
 BoxCollider:
@@ -401,7 +401,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: .400000006, y: .400000006, z: .200000003}
+  m_Size: {x: 1, y: 1, z: .200000003}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &6597558
 BoxCollider:
@@ -413,7 +413,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: .400000006, y: .400000006, z: .200000003}
+  m_Size: {x: 1, y: 1, z: .200000003}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &11415818
 MonoBehaviour:
