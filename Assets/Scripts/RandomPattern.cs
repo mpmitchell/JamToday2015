@@ -2,28 +2,36 @@
 using System.Collections.Generic;
 
 public class RandomPattern : MonoBehaviour {
+    [SerializeField] private int minPatternSize;
+    [SerializeField] private int maxPatternSize;
     [SerializeField] private float frequency;
-
-    private LinkedList<KeyValuePair<GameObject, LineRenderer>> dots_ = new LinkedList<KeyValuePair<GameObject, LineRenderer>>();
-    private LinkedList<KeyValuePair<GameObject, LineRenderer>> pattern_ = new LinkedList<KeyValuePair<GameObject, LineRenderer>>();
+    
+    private LinkedList<GameObject> dots_ = new LinkedList<GameObject>();
+    private Dictionary<GameObject, LineRenderer> lineRenderers_ = new Dictionary<GameObject, LineRenderer>();
+    private Dictionary<GameObject, LinkedList<GameObject>> adjacencyLists_ = new Dictionary<GameObject, LinkedList<GameObject>>();
+    private LinkedList<GameObject> pattern_ = new LinkedList<GameObject>();
     private float timer = 0.0f;
     private Rect bounds = new Rect();
 
     private void Awake() {
         foreach (Transform child in transform) {
-            dots_.AddLast(new KeyValuePair<GameObject, LineRenderer>(child.gameObject, child.GetComponent<LineRenderer>()));
-            
-            if (child.localPosition.x < bounds.xMin) {
-                bounds.xMin = child.localPosition.x;
+            dots_.AddLast(child.gameObject);
+            lineRenderers_.Add(child.gameObject, child.gameObject.GetComponent<LineRenderer>());
+            adjacencyLists_.Add(child.gameObject, new LinkedList<GameObject>(child.gameObject.GetComponent<Node>().adjacentNodes_));
+
+            Bounds sprite = child.GetComponent<SpriteRenderer>().sprite.bounds;
+
+            if (child.localPosition.x - sprite.size.x < bounds.xMin) {
+                bounds.xMin = child.localPosition.x - sprite.size.x;
             }
-            if (child.localPosition.x > bounds.xMax) {
-                bounds.xMax = child.localPosition.x;
+            if (child.localPosition.x + sprite.size.x > bounds.xMax) {
+                bounds.xMax = child.localPosition.x + sprite.size.x;
             }
-            if (child.localPosition.y < bounds.yMin) {
-                bounds.yMin = child.localPosition.y;
+            if (child.localPosition.y - sprite.size.y < bounds.yMin) {
+                bounds.yMin = child.localPosition.y - sprite.size.y;
             }
-            if (child.localPosition.y > bounds.yMax) {
-                bounds.yMax = child.localPosition.y;
+            if (child.localPosition.y + sprite.size.y > bounds.yMax) {
+                bounds.yMax = child.localPosition.y + sprite.size.y;
             }
         }
 
@@ -39,8 +47,10 @@ public class RandomPattern : MonoBehaviour {
     private void Update() {
         timer += Time.deltaTime;
 
-        if (timer > 1.0f / frequency) {
+        //if (timer > 1.0f / frequency) {
+        if (Input.GetButtonDown("Fire2")) {
             RandomizePosition();
+            ClearPreviousPattern();
             GeneratePattern();
             timer = 0.0f;
         }
@@ -54,28 +64,49 @@ public class RandomPattern : MonoBehaviour {
         }
     }
 
-    private void GeneratePattern() {
+    private void ClearPreviousPattern() {
         var dot = pattern_.Last;
         for (int index = pattern_.Count; index > 0; --index) {
-            dot.Value.Value.SetPosition(1, Vector3.zero);
+            lineRenderers_[dot.Value].SetPosition(1, Vector3.zero);
             dots_.AddLast(dot.Value);
             dot = dot.Previous;
         }
         pattern_.Clear();
+    }
 
-        int max = dots_.Count;
-        int count = Random.Range(3, max);
+    private void GeneratePattern() {
+        int count = Random.Range(minPatternSize, maxPatternSize + 1);
+
+        var dot = dots_.Last;
+        for (int index = Random.Range(0, dots_.Count); index > 0; --index, dot = dot.Previous) ;
 
         for (int i = 0; i < count; ++i) {
-            dot = dots_.Last;
-            for (int index = Random.Range(0, max - i); index > 0; --index, dot = dot.Previous) ;
-
-            if (pattern_.Count != 0) {
-                dot.Value.Value.SetPosition(1, pattern_.Last.Value.Key.transform.position - dot.Value.Key.transform.position);
+            LinkedList<GameObject> otherDots = new LinkedList<GameObject>(adjacencyLists_[dot.Value]);
+            LinkedList<GameObject> adjacentDots = new LinkedList<GameObject>();
+            foreach (GameObject otherDot in otherDots) {
+                if (!pattern_.Contains(otherDot)) {
+                    adjacentDots.AddLast(otherDot);
+                }
             }
 
-            pattern_.AddLast(dot.Value);
-            dots_.Remove(dot.Value);
+            if (adjacentDots.Count == 0) {
+                break;
+            }
+
+            var adjacentDot = adjacentDots.Last;
+            for (int index = Random.Range(0, adjacentDots.Count); index > 0; --index, adjacentDot = adjacentDot.Previous) ;
+            
+            lineRenderers_[dot.Value].SetPosition(1, adjacentDot.Value.transform.position - dot.Value.transform.position);
+            pattern_.AddLast(adjacentDot.Value);
+            dot = dots_.Find(adjacentDot.Value);
         }
+    }
+
+    public LinkedList<string> GetPattern() {
+        LinkedList<string> pattern = new LinkedList<string>();
+        foreach (GameObject dot in pattern_) {
+            pattern.AddLast(dot.name);
+        }
+        return pattern;
     }
 }
