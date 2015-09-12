@@ -12,6 +12,8 @@ public class PatternGrid : MonoBehaviour {
     private Dictionary<GameObject, bool> activeDots_ = new Dictionary<GameObject, bool>();
     private Dictionary<GameObject, LineRenderer> lineRenderers_ = new Dictionary<GameObject, LineRenderer>();
 
+    private bool done_ = false;
+
     private void Awake() {
         gameData_ = GameObject.FindGameObjectWithTag("GameController");
         randomPattern_ = GameObject.FindGameObjectWithTag("Pattern").GetComponent<RandomPattern>();
@@ -59,7 +61,7 @@ public class PatternGrid : MonoBehaviour {
                     pattern_.AddLast(hit.collider.gameObject.name);
                 }
             }
-        } else if (Input.GetButtonUp("Fire1") && pattern_.Count > 1) {
+        } else if (!done_ && Input.GetButtonUp("Fire1") && pattern_.Count > 1) {
             var randomPattern = randomPattern_.GetPattern();
             
             if (pattern_.Count == randomPattern.Count) {
@@ -99,6 +101,12 @@ public class PatternGrid : MonoBehaviour {
             } else {
                 gameData_.SendMessage("Fail");
             }
+
+            done_ = true;
         }
+    }
+
+    private void NewPattern() {
+        done_ = false;
     }
 }

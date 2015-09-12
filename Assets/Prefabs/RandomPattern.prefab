@@ -397,9 +397,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc5888a5ef8f2a24b8edd67aafebb8a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  grid_: {fileID: 195644, guid: 5b8e6c4d965cc8042a15ef89b69e6486, type: 2}
   minPatternSize_: 3
   maxPatternSize_: 5
   frequency_: .25
+  showTime_: .5
 --- !u!114 &11473344
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1124,6 +1126,14 @@ Prefab:
       propertyPath: frequency_
       value: .25
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: showTime_
+      value: .5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: grid_
+      value: 
+      objectReference: {fileID: 195644, guid: 5b8e6c4d965cc8042a15ef89b69e6486, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 110034}
