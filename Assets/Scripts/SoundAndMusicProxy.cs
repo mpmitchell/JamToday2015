@@ -2,25 +2,29 @@
 using System.Collections;
 
 public class SoundAndMusicProxy : MonoBehaviour {
-    private SoundAndMusic soundAndMusic_;
+    [SerializeField] private GameObject soundAndMusic_;
+
+    private SoundAndMusic audioSource_;
 
     private void Start() {
-        GameObject gameObject = GameObject.Find("Sound & Music");
+        GameObject gameObject = GameObject.FindGameObjectWithTag("Sound & Music");
 
         if (gameObject) {
-            soundAndMusic_ = gameObject.GetComponent<SoundAndMusic>();
+            audioSource_ = gameObject.GetComponent<SoundAndMusic>();
+        } else {
+            audioSource_ = Instantiate(soundAndMusic_).GetComponent<SoundAndMusic>();
         }
     }
 
     public void ToggleMusic(bool toggle) {
-        soundAndMusic_.ToggleMusic(toggle);
+        audioSource_.ToggleMusic(toggle);
     }
 
     public void ToggleSound(bool toggle) {
-        soundAndMusic_.ToggleSound(toggle);
+        audioSource_.ToggleSound(toggle);
     }
 
     public void PlaySound(AudioClip clip) {
-        soundAndMusic_.PlaySound(clip);
+        audioSource_.PlaySound(clip);
     }
 }
