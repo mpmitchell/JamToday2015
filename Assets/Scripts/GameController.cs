@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class GameController : MonoBehaviour {
     public static GameController instance = null;
 
+    public float delay_;
     public float maxTimePerPattern_;
     public float patternTimeShown_;
     public int patternCount_;
@@ -48,8 +49,8 @@ public class GameController : MonoBehaviour {
         if (currentPattern_ == null) {
             currentPattern_ = pattern;
 
-            GameObject shootingStar = Instantiate(shootingStarPrefab_) as GameObject;
-            shootingStar.GetComponent<ShootingStar>().Initiate(pattern);
+            currentPatternDisplay_ = Instantiate(shootingStarPrefab_) as GameObject;
+            currentPatternDisplay_.GetComponent<ShootingStar>().DelayedIntatiate(pattern);
 
             //currentPatternDisplay_ = Instantiate(patternDisplayPrefab_) as GameObject;
             //currentPatternDisplay_.GetComponent<PatternDisplay>().Initiate(pattern);
@@ -116,8 +117,8 @@ public class GameController : MonoBehaviour {
             currentPattern_ = newPatterns_.Last.Value;
             newPatterns_.RemoveLast();
 
-            GameObject shootingStar = Instantiate(shootingStarPrefab_) as GameObject;
-            shootingStar.GetComponent<ShootingStar>().Initiate(currentPattern_);
+            currentPatternDisplay_ = Instantiate(shootingStarPrefab_) as GameObject;
+            currentPatternDisplay_.GetComponent<ShootingStar>().DelayedIntatiate(currentPattern_);
 
             //currentPatternDisplay_ = Instantiate(patternDisplayPrefab_) as GameObject;
             //currentPatternDisplay_.GetComponent<PatternDisplay>().Initiate(currentPattern_);

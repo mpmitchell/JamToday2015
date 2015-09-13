@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 
 public class Control : MonoBehaviour {
-    [SerializeField] private AudioClip[] audioClips;
+    [SerializeField] private AudioClip[] audioClips_;
+    [SerializeField] private Stop stop_;
 
     private Dictionary<GameObject, PatternNode> nodes_ = new Dictionary<GameObject, PatternNode>();
     private float timer = 0.0f;
 
-    private SoundAndMusicProxy audio;
+    private SoundAndMusicProxy audio_;
     private int audioClipIndex = 0;
 
     private void Start() {
@@ -15,15 +16,15 @@ public class Control : MonoBehaviour {
             nodes_.Add(child.gameObject, child.GetComponent<PatternNode>());
         }
 
-        audio = GameController.instance.gameObject.GetComponent<SoundAndMusicProxy>();
+        audio_ = GameController.instance.gameObject.GetComponent<SoundAndMusicProxy>();
     }
 
     private void Update() {
-        if (GameController.instance.currentPattern_ == null) {
-            return;
-        }
-
         if ((timer += Time.deltaTime) > GameController.instance.maxTimePerPattern_) {
+            if (Input.GetButton("Fire1")) {
+                stop_.Show();
+            }
+
             GameController.instance.RegisterAttempt();
             foreach (var node in nodes_) {
                 node.Value.isActive = true;
@@ -36,7 +37,7 @@ public class Control : MonoBehaviour {
 
             if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity, LayerMask.GetMask("PatternNodes"))) {
                 if (nodes_[hit.collider.gameObject].isActive) {
-                    audio.PlaySound(audioClips[audioClipIndex]);
+                    audio_.PlaySound(audioClips_[audioClipIndex]);
                     if (++audioClipIndex == 5) {
                         audioClipIndex = 4;
                     }

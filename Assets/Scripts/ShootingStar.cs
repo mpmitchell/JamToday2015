@@ -9,6 +9,8 @@ public class ShootingStar : MonoBehaviour {
     private LinkedList<PatternNode> nodes_ = new LinkedList<PatternNode>();
     private LinkedListNode<PatternNode> currentTarget_;
 
+    private bool initiated_ = false;
+
     private void Awake() {
         foreach (Transform child in transform) {
             if (child.gameObject != shootingStar_) {
@@ -17,8 +19,12 @@ public class ShootingStar : MonoBehaviour {
         }
     }
 
-    public void Initiate(Pattern pattern) {
+    public void DelayedIntatiate(Pattern pattern) {
         pattern_ = pattern;
+        Invoke("Initiate", GameController.instance.delay_);
+    }
+
+    public void Initiate() {
         pattern_.ReplacePatternNodeSet(nodes_);
 
         Vector2 range = GameController.instance.GetLevelBand();
@@ -28,19 +34,23 @@ public class ShootingStar : MonoBehaviour {
 
         shootingStar_.transform.position = pattern_.pattern.First.Value.transform.position;
         currentTarget_ = pattern_.pattern.First.Next;
+
+        initiated_ = true;
     }
 
     private void Update() {
-        Vector2 direction = (currentTarget_.Value.transform.position - shootingStar_.transform.position).normalized;
-        shootingStar_.transform.Translate(direction * speed_ * Time.deltaTime);
+        if (initiated_) {
+            Vector2 direction = (currentTarget_.Value.transform.position - shootingStar_.transform.position).normalized;
+            shootingStar_.transform.Translate(direction * speed_ * Time.deltaTime);
 
-        if ((currentTarget_.Value.transform.position - shootingStar_.transform.position).magnitude < 0.05f) {
-            shootingStar_.transform.position = currentTarget_.Value.transform.position;
+            if ((currentTarget_.Value.transform.position - shootingStar_.transform.position).magnitude < 0.05f) {
+                shootingStar_.transform.position = currentTarget_.Value.transform.position;
 
-            if (currentTarget_.Next != null) {
-                currentTarget_ = currentTarget_.Next;
-            } else {
-                Destroy(gameObject);
+                if (currentTarget_.Next != null) {
+                    currentTarget_ = currentTarget_.Next;
+                } else {
+                    Destroy(gameObject);
+                }
             }
         }
     }
