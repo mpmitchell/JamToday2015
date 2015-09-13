@@ -17,6 +17,6 @@ public class SoundAndMusic : MonoBehaviour {
     }
 
     public void PlaySound(AudioClip clip) {
-            musicSource_.PlayOneShot(clip);
+        soundSource_.PlayOneShot(clip);
     }
 }

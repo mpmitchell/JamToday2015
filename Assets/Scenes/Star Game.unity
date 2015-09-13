@@ -1387,6 +1387,7 @@ Transform:
   m_Children:
   - {fileID: 1919521735}
   - {fileID: 1984045476}
+  - {fileID: 2049003666}
   m_Father: {fileID: 0}
   m_RootOrder: 4
 --- !u!114 &1189497488
@@ -1424,6 +1425,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e98d899809a47a747b00cca79648ad72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundAndMusic_: {fileID: 169710, guid: b490ec44ced1d4645b47d1249df802ab, type: 2}
 --- !u!1 &1194702702
 GameObject:
   m_ObjectHideFlags: 0
@@ -3107,6 +3109,60 @@ LineRenderer:
       serializedVersion: 2
       rgba: 4294967295
   m_UseWorldSpace: 0
+--- !u!1 &2049003664
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 2049003666}
+  - 212: {fileID: 2049003665}
+  m_Layer: 0
+  m_Name: Grid BG_transparent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!212 &2049003665
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2049003664}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_ReflectionProbeUsage: 0
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: df5672c5d6a73d6478c36e84ea764fde, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+--- !u!4 &2049003666
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2049003664}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1189497487}
+  m_RootOrder: 2
 --- !u!1 &2064861191
 GameObject:
   m_ObjectHideFlags: 0
@@ -3268,7 +3324,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Sprite: {fileID: 21300000, guid: 7b704a1304ccde740bcba7a85daa258c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d1d30b8c0c9f7b04895b66a65d14c145, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
