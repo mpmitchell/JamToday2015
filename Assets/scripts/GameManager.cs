@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour {
     public GameObject firstRocket;
     public GameObject currentRocket;
     public int i;
+    public int rocket = 1;
+    public bool rocketswitch = false;
 
     public static GameManager me = null;
 
