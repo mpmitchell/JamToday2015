@@ -1388,6 +1388,7 @@ Transform:
   - {fileID: 1919521735}
   - {fileID: 1984045476}
   - {fileID: 2049003666}
+  - {fileID: 1556984474}
   m_Father: {fileID: 0}
   m_RootOrder: 4
 --- !u!114 &1189497488
@@ -2290,8 +2291,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_Father: {fileID: 1189497487}
+  m_RootOrder: 3
 --- !u!1 &1669457317
 GameObject:
   m_ObjectHideFlags: 0
@@ -2932,7 +2933,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 613a16a18a95a43469ad0465fc85e58c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioClips_: []
+  audioClips_:
+  - {fileID: 8300000, guid: e844864980bed224886da02e7b126820, type: 3}
+  - {fileID: 8300000, guid: 1d0e8b00d1cc5e7459994f40c6abed03, type: 3}
+  - {fileID: 8300000, guid: 3c0ecdab92e2fa047968bf47941a7dd2, type: 3}
+  - {fileID: 8300000, guid: 309df433e5a9b4b42b2d6209775695d8, type: 3}
+  - {fileID: 8300000, guid: 12bd0939b69fcf6488d364a1a6316666, type: 3}
   stop_: {fileID: 1556984472}
 --- !u!1 &2031168020
 GameObject:

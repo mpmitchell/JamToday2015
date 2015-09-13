@@ -19,10 +19,10 @@ public class MainMenu : MonoBehaviour {
     }
 
     public void Game1Button() {
-        Application.LoadLevel(1);
+        Application.LoadLevel("Game1 Tutorial");
     }
 
     public void Game2Button() {
-        Application.LoadLevel(2);
+        Application.LoadLevel("SOMETHING");
     }
 }
